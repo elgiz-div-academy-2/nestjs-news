@@ -2,16 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsAlphanumeric,
-  IsEmail,
-  IsEnum,
-  IsOptional,
   IsString,
   Length,
+  Min,
   MinLength,
 } from 'class-validator';
-import { UserGender } from 'src/modules/user/user.types';
 
-export class AuthRegisterDto {
+export class AuthSignInDto {
   @Type()
   @IsString()
   @Length(3, 30)
@@ -24,15 +21,4 @@ export class AuthRegisterDto {
   @MinLength(6)
   @ApiProperty({ default: '123456' })
   password: string;
-
-  @Type()
-  @IsEnum(UserGender)
-  @ApiProperty({ default: UserGender.MALE })
-  gender: UserGender;
-
-  @Type()
-  @IsString()
-  @IsOptional()
-  @ApiProperty({ nullable: true, default: 'John Doe' })
-  fullName: string;
 }
