@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Ip, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -12,5 +12,10 @@ export class UserController {
   @Get()
   list() {
     return this.userService.list();
+  }
+
+  @Post('/guest')
+  createGuest(@Ip() userIp: string) {
+    return this.userService.createGuest(userIp);
   }
 }

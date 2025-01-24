@@ -1,4 +1,4 @@
-import { UserGender } from 'src/modules/user/user.types';
+import { UserGender, UserRole } from 'src/modules/user/user.types';
 import {
   BaseEntity,
   BeforeInsert,
@@ -25,6 +25,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'enum', enum: UserGender, default: UserGender.MALE })
   gender: UserGender;
+
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.GUEST })
+  role: UserRole;
 
   @BeforeInsert()
   @BeforeUpdate()
