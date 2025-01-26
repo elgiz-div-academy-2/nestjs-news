@@ -4,12 +4,12 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
-@ApiBearerAuth()
-@UseGuards(AuthGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   list() {
     return this.userService.list();
   }

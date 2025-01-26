@@ -28,11 +28,7 @@ export class CommentController {
   @UseGuards(AuthGuard)
   @Roles(UserRole.GUEST)
   @ApiBearerAuth()
-  create(
-    @Param('newsId') newsId: number,
-    @Req() req: AuthorizedRequest,
-    @Body() body: CreateCommentDto,
-  ) {
-    return this.commentService.create(newsId, body, req.user.id);
+  create(@Param('newsId') newsId: number, @Body() body: CreateCommentDto) {
+    return this.commentService.create(newsId, body);
   }
 }

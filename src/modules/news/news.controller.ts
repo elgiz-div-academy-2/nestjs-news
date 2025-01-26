@@ -52,11 +52,7 @@ export class NewsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Roles(UserRole.GUEST)
-  action(
-    @Param('id') id: number,
-    @Param('type') type: NewsActionType,
-    @Req() req: AuthorizedRequest,
-  ) {
-    return this.newsService.action(id, type, req.user.id);
+  action(@Param('id') id: number, @Param('type') type: NewsActionType) {
+    return this.newsService.action(id, type);
   }
 }

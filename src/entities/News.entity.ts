@@ -41,6 +41,9 @@ export class NewsEntity extends BaseEntity {
   @Column({ default: 0 })
   views: number;
 
+  @Column({ default: false })
+  hot: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
