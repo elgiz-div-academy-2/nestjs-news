@@ -7,6 +7,7 @@ import {
   Query,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -19,12 +20,14 @@ import { Request } from 'express';
 import { AuthorizedRequest } from '../auth/auth.types';
 import { Roles } from 'src/shared/decorator/role.decorator';
 import { UserRole } from '../user/user.types';
+import { LogRequestTimeInterceptor } from 'src/interceptors/log-request-time.interceptor';
 
 @Controller('news')
 export class NewsController {
   constructor(private newsService: NewsService) {}
 
   @Get()
+  @UseInterceptors(LogRequestTimeInterceptor)
   list(@Query() query: NewsListQueryDto) {
     return this.newsService.list(query);
   }

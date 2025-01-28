@@ -15,6 +15,9 @@ import DataSource from './config/typeorm';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { UploadModule } from './modules/upload/upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -36,11 +39,16 @@ import { APP_GUARD } from '@nestjs/core';
         limit: 30,
       },
     ]),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../uploads'),
+      serveRoot: '/uploads/',
+    }),
     AuthModule,
     UserModule,
     NewsModule,
     CategoryModule,
     CommentModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
